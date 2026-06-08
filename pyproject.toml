@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ml-control-plane"
+version = "0.1.0"
+description = "A self-hostable control plane for running ML jobs through pluggable runners under a centralized lifecycle and audit."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Philip Jackman" }]
+keywords = ["ml", "mlops", "orchestration", "platform", "control-plane"]
+dependencies = [
+    "fastapi>=0.110",
+    "uvicorn>=0.27",
+    "pydantic>=2.6",
+    "apscheduler>=3.10,<4",
+]
+
+[project.optional-dependencies]
+sklearn = ["scikit-learn>=1.4", "numpy>=1.26"]
+dev = ["pytest>=8.0", "httpx>=0.27"]
+
+[project.scripts]
+mlcp = "mlcp.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["mlcp*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
